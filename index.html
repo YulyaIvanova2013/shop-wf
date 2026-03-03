@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXAM PACK: Word Formation "Shopping & Pocket Money"</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f7ff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 100, 200, 0.1);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px dashed #4dabf7;
+        }
+        
+        h1 {
+            color: #1c7ed6;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .emoji {
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #5c7cfa;
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: bold;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #e7f5ff 0%, #d0ebff 100%);
+            border-radius: 15px;
+            border: 2px solid #4dabf7;
+        }
+        
+        .instructions {
+            background-color: #e7f5ff;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #339af0;
+        }
+        
+        .instructions h2 {
+            color: #1971c2;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .page {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid #dee2e6;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+            border-color: #4dabf7;
+            box-shadow: 0 5px 15px rgba(77, 171, 247, 0.2);
+        }
+        
+        .page.completed {
+            border-color: #51cf66;
+            background-color: #f8fff9;
+        }
+        
+        .page h3 {
+            color: #1c7ed6;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .page-number {
+            background-color: #339af0;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        
+        .text-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .word-to-change {
+            font-weight: bold;
+            color: #1864ab;
+            background-color: #e7f5ff;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-right: 5px;
+            border: 1px solid #a5d8ff;
+        }
+        
+        .input-container {
+            display: inline-block;
+            position: relative;
+            margin: 0 5px;
+            width: 120px;
+        }
+        
+        .answer-input {
+            padding: 8px 12px;
+            font-size: 1.1rem;
+            border: 2px solid #adb5bd;
+            border-radius: 10px;
+            width: 100%;
+            transition: all 0.3s;
+            text-align: center;
+            background-color: white;
+        }
+        
+        .answer-input:focus {
+            outline: none;
+            border-color: #339af0;
+            box-shadow: 0 0 0 3px rgba(51, 154, 240, 0.2);
+        }
+        
+        .correct {
+            border-color: #40c057;
+            background-color: #ebfbee;
+            color: #2b8a3e;
+        }
+        
+        .incorrect {
+            border-color: #fa5252;
+            background-color: #fff5f5;
+            color: #c92a2a;
+        }
+        
+        .feedback-icon {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+        
+        .check-icon {
+            color: #40c057;
+        }
+        
+        .times-icon {
+            color: #fa5252;
+        }
+        
+        .explanation {
+            max-height: 0;
+            overflow: hidden;
+            margin-top: 0;
+            transition: max-height 0.5s ease, margin-top 0.3s ease;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 0 15px;
+        }
+        
+        .explanation.show {
+            max-height: 800px;
+            margin-top: 15px;
+            padding: 15px;
+        }
+        
+        .explanation h4 {
+            color: #1971c2;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .explanation-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .translation, .word-rule {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .translation h5, .word-rule h5 {
+            color: #1c7ed6;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .correct-answer {
+            font-weight: bold;
+            color: #2b8a3e;
+            background-color: #ebfbee;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin: 0 5px;
+            border: 1px solid #8ce99a;
+        }
+        
+        .user-answer {
+            font-weight: bold;
+            color: #c92a2a;
+            background-color: #fff5f5;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin: 0 5px;
+            border: 1px solid #ffa8a8;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        #check-btn {
+            background-color: #339af0;
+            color: white;
+        }
+        
+        #check-btn:hover:not(:disabled) {
+            background-color: #1c7ed6;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        #next-btn {
+            background-color: #51cf66;
+            color: white;
+        }
+        
+        #next-btn:hover:not(:disabled) {
+            background-color: #40c057;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        #restart-btn {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        
+        #restart-btn:hover {
+            background-color: #fa5252;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        #restart-page-btn {
+            background-color: #ffa94d;
+            color: white;
+        }
+        
+        #restart-page-btn:hover {
+            background-color: #ff922b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .progress-container {
+            background-color: #e9ecef;
+            height: 15px;
+            border-radius: 8px;
+            margin: 30px 0;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #4dabf7, #339af0);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 8px;
+        }
+        
+        .progress-text {
+            text-align: center;
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .completion-message {
+            text-align: center;
+            padding: 50px 40px;
+            background: linear-gradient(135deg, #ebfbee 0%, #d3f9d8 100%);
+            border-radius: 20px;
+            border: 3px solid #51cf66;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .celebration-text {
+            color: #2b8a3e;
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: pulse 1.5s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+        
+        .celebration-emoji {
+            font-size: 4rem;
+            margin: 20px 0;
+            animation: bounce 1s infinite alternate;
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-10px); }
+        }
+        
+        .completion-message h2 {
+            color: #2b8a3e;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .completion-message p {
+            font-size: 1.2rem;
+            color: #2b8a3e;
+            margin-bottom: 15px;
+        }
+        
+        .score-display {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #1c7ed6;
+            margin: 25px 0;
+            background-color: white;
+            padding: 15px 30px;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+                padding: 8px 15px;
+            }
+            
+            .emoji {
+                font-size: 2rem;
+            }
+            
+            .text-content {
+                font-size: 1.1rem;
+            }
+            
+            .input-container {
+                width: 100px;
+                margin: 5px 3px;
+            }
+            
+            .answer-input {
+                font-size: 1rem;
+                padding: 6px 8px;
+            }
+            
+            .explanation-content {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            button {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .celebration-text {
+                font-size: 2.5rem;
+            }
+            
+            .celebration-emoji {
+                font-size: 3rem;
+            }
+        }
+        
+        .hint {
+            font-size: 0.9rem;
+            color: #868e96;
+            margin-top: 5px;
+            font-style: italic;
+            display: block;
+        }
+        
+        .word-hint {
+            color: #5c7cfa;
+            font-weight: bold;
+        }
+        
+        .hints-section {
+            background-color: #f1f3f5;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #4dabf7;
+        }
+        
+        .hints-section p {
+            margin-top: 0;
+            font-weight: bold;
+            color: #1864ab;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .word-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .word-item {
+            background-color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+            font-weight: bold;
+            color: #1864ab;
+        }
+        
+        .error-message {
+            background-color: #fff5f5;
+            border: 2px solid #fa5252;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .error-message h4 {
+            color: #c92a2a;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .task-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            min-height: 30px;
+        }
+        
+        .status-correct {
+            color: #2b8a3e;
+            background-color: #ebfbee;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid #8ce99a;
+        }
+        
+        .status-incorrect {
+            color: #c92a2a;
+            background-color: #fff5f5;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid #ffa8a8;
+        }
+        
+        .status-empty {
+            color: #495057;
+            background-color: #e9ecef;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .page-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .page-btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: 2px solid #dee2e6;
+            background-color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .page-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .page-btn.active {
+            background-color: #339af0;
+            color: white;
+            border-color: #339af0;
+        }
+        
+        .page-btn.completed {
+            background-color: #51cf66;
+            color: white;
+            border-color: #51cf66;
+        }
+        
+        .page-btn.locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: #e9ecef;
+        }
+        
+        .page-btn.locked:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .navigation-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px dashed #dee2e6;
+        }
+        
+        .nav-left, .nav-right {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .review-notice {
+            background-color: #fff3bf;
+            border: 2px solid #ffd43b;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #5c3c00;
+            display: none;
+        }
+        
+        .theme-emoji {
+            font-size: 1.5rem;
+            margin: 0 5px;
+        }
+        
+        .page-check-btn {
+            margin-top: 25px;
+            padding: 12px 24px;
+            background-color: #339af0;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 250px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .page-check-btn:hover:not(:disabled) {
+            background-color: #1c7ed6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .page-check-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>
+                <span class="emoji">🛍️🛒💳</span>
+                Word Formation Practice
+                <span class="emoji">💰💸📊</span>
+            </h1>
+            <p class="subtitle">EXAM PACK "SHOPPING & POCKET MONEY" <span class="theme-emoji">🛒💰📝</span></p>
+        </header>
+        
+        <div class="instructions">
+            <h2><i class="fas fa-info-circle"></i> Как работать с тренажером <span class="theme-emoji">📚✏️🎯</span></h2>
+            <p><span class="theme-emoji">1️⃣</span> Каждое задание находится на отдельной странице (1-5).</p>
+            <p><span class="theme-emoji">2️⃣</span> Преобразуйте слова, данные <strong>ЗАГЛАВНЫМИ БУКВАМИ</strong>, и впишите их в поля.</p>
+            <p><span class="theme-emoji">3️⃣</span> После заполнения всех полей нажмите кнопку "CHECK THE ANSWERS" внизу страницы.</p>
+            <p><span class="theme-emoji">4️⃣</span> <strong>Следующая страница откроется только когда все ответы на текущей странице будут правильными</strong>.</p>
+            <p><span class="theme-emoji">5️⃣</span> После выполнения всех страниц вы получите поздравление! <span class="theme-emoji">🎉🏆✨</span></p>
+            <p><span class="theme-emoji">6️⃣</span> Вы всегда можете переключаться между выполненными страницами с помощью кнопок 1-5.</p>
+        </div>
+        
+        <div id="review-notice" class="review-notice">
+            <i class="fas fa-eye"></i> Режим просмотра: вы можете просматривать все выполненные задания с пояснениями. <span class="theme-emoji">👁️📖✅</span>
+        </div>
+        
+        <div class="page-navigation">
+            <button class="page-btn" data-page="0">
+                <i class="fas fa-file-alt"></i> Страница 1 <span class="theme-emoji">🛋️</span>
+            </button>
+            <button class="page-btn locked" data-page="1">
+                <i class="fas fa-lock"></i> Страница 2 <span class="theme-emoji">🇬🇧</span>
+            </button>
+            <button class="page-btn locked" data-page="2">
+                <i class="fas fa-lock"></i> Страница 3 <span class="theme-emoji">💻</span>
+            </button>
+            <button class="page-btn locked" data-page="3">
+                <i class="fas fa-lock"></i> Страница 4 <span class="theme-emoji">❤️</span>
+            </button>
+            <button class="page-btn locked" data-page="4">
+                <i class="fas fa-lock"></i> Страница 5 <span class="theme-emoji">🍫</span>
+            </button>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="progress-text" id="progress-text">Страница 1 из 5 <span class="theme-emoji">📄</span></div>
+        
+        <div id="pages-container">
+            <!-- Страницы с заданиями будут вставлены сюда -->
+        </div>
+        
+        <div class="controls">
+            <button id="next-btn" class="hidden">
+                <i class="fas fa-arrow-right"></i> Следующая страница <span class="theme-emoji">➡️</span>
+            </button>
+            <button id="restart-page-btn">
+                <i class="fas fa-redo"></i> Начать страницу заново <span class="theme-emoji">🔄</span>
+            </button>
+            <button id="restart-btn">
+                <i class="fas fa-sync-alt"></i> Начать всё заново <span class="theme-emoji">🔄🔄</span>
+            </button>
+        </div>
+        
+        <div class="navigation-controls">
+            <div class="nav-left">
+                <button id="prev-page-btn" class="hidden">
+                    <i class="fas fa-arrow-left"></i> Предыдущая страница <span class="theme-emoji">⬅️</span>
+                </button>
+            </div>
+            <div class="nav-right">
+                <button id="view-all-btn" class="hidden">
+                    <i class="fas fa-eye"></i> Просмотреть все <span class="theme-emoji">👁️📚</span>
+                </button>
+            </div>
+        </div>
+        
+        <div id="error-message" class="error-message">
+            <h4><i class="fas fa-exclamation-triangle"></i> Обнаружены ошибки! <span class="theme-emoji">❌⚠️</span></h4>
+            <p>Исправьте все ошибки, чтобы перейти к следующей странице.</p>
+            <p>Вы можете:</p>
+            <ol>
+                <li>Исправить неправильные ответы прямо сейчас <span class="theme-emoji">✏️✅</span></li>
+                <li>Использовать кнопку "Начать страницу заново", чтобы начать эту страницу заново <span class="theme-emoji">🔄</span></li>
+                <li>Прочитать пояснения к ошибкам для лучшего понимания <span class="theme-emoji">📖💡</span></li>
+            </ol>
+        </div>
+        
+        <div class="completion-message" id="completion-message">
+            <div class="celebration-text">Excellent! You did it! <span class="theme-emoji">🎉🏆✨</span></div>
+            <div class="celebration-emoji">🛍️💰💳💸📊✅🎓🥇</div>
+            <h2><i class="fas fa-trophy"></i> Congratulations! <i class="fas fa-trophy"></i> <span class="theme-emoji">🎯✅✨</span></h2>
+            <p>You have successfully completed all word formation exercises! <span class="theme-emoji">📚✅🎉</span></p>
+            <div class="score-display" id="score-display"></div>
+            <p>Your word formation skills have improved significantly! <span class="theme-emoji">📈💪🧠</span></p>
+            <p>You are now better prepared for the OGE English exam. <span class="theme-emoji">📝🇬🇧✅</span></p>
+            <div style="margin-top: 30px;">
+                <button id="restart-from-completion" style="background-color: #4dabf7; margin-right: 15px;">
+                    <i class="fas fa-redo"></i> Try Again <span class="theme-emoji">🔄</span>
+                </button>
+                <button id="review-pages" style="background-color: #9775fa;">
+                    <i class="fas fa-eye"></i> Review All Pages <span class="theme-emoji">👁️📖</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Данные заданий из предоставленного контента
+        const pagesData = [
+            {
+                id: 1,
+                title: "Page 1: Buying a sofa <span class='theme-emoji'>🛋️🛒</span>",
+                content: `Mum wants to buy a new sofa for the sitting room. So, yesterday, we went to the largest furniture store in the city. However, we didn't buy anything because Mum couldn't make a <span class="word-to-change">DECIDE</span> <div class="input-container"><input type="text" class="answer-input" data-page="0" data-word="0" placeholder="..."><div class="feedback-icon"></div></div> about what she liked best. There were sofas in <span class="word-to-change">TRADITION</span> <div class="input-container"><input type="text" class="answer-input" data-page="0" data-word="1" placeholder="..."><div class="feedback-icon"></div></div> and modern styles, in <span class="word-to-change">DIFFER</span> <div class="input-container"><input type="text" class="answer-input" data-page="0" data-word="2" placeholder="..."><div class="feedback-icon"></div></div> colours and patterns. The shop <span class="word-to-change">ASSIST</span> <div class="input-container"><input type="text" class="answer-input" data-page="0" data-word="3" placeholder="..."><div class="feedback-icon"></div></div> spoke very patiently and showed us one model after another. At last Mum chose one of them, but, <span class="word-to-change">FORTUNATELY</span> <div class="input-container"><input type="text" class="answer-input" data-page="0" data-word="4" placeholder="..."><div class="feedback-icon"></div></div>, they didn't have that model in her favourite colour.`,
+                words: [
+                    {
+                        base: "DECIDE",
+                        answer: "decision",
+                        translation: "решение (процесс принятия решения или сам результат)",
+                        explanation: "Суффикс -SION используется для образования существительных от глаголов. Decide (решать) → decision (решение). Аналогично: televise (телевизировать) → television (телевидение)."
+                    },
+                    {
+                        base: "TRADITION",
+                        answer: "traditional",
+                        translation: "традиционный, соответствующий традициям",
+                        explanation: "Суффикс -AL используется для образования прилагательных от существительных. Tradition (традиция) → traditional (традиционный). Аналогично: music (музыка) → musical (музыкальный), nation (нация) → national (национальный)."
+                    },
+                    {
+                        base: "DIFFER",
+                        answer: "different",
+                        translation: "разный, отличающийся",
+                        explanation: "Суффикс -ENT используется для образования прилагательных от глаголов. Differ (отличаться) → different (разный). Аналогично: depend (зависеть) → dependent (зависимый), exist (существовать) → existent (существующий)."
+                    },
+                    {
+                        base: "ASSIST",
+                        answer: "assistant",
+                        translation: "помощник, продавец-консультант",
+                        explanation: "Суффикс -ANT используется для образования существительных, обозначающих лицо по роду деятельности. Assist (помогать) → assistant (помощник). Аналогично: consult (консультировать) → consultant (консультант)."
+                    },
+                    {
+                        base: "FORTUNATELY",
+                        answer: "unfortunately",
+                        translation: "к сожалению",
+                        explanation: "Приставка UN- придаёт слову противоположное значение. Fortunately (к счастью) → unfortunately (к сожалению). В контексте предложения это логично, так как модель не была доступна в любимом цвете."
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "Page 2: Shopping in London <span class='theme-emoji'>🇬🇧🛍️</span>",
+                content: `The best thing about shopping in London is that there really are hundreds of cool shops selling <span class="word-to-change">FASHION</span> <div class="input-container"><input type="text" class="answer-input" data-page="1" data-word="0" placeholder="..."><div class="feedback-icon"></div></div> clothes. Only here you can find a wide choice of <span class="word-to-change">ORIGIN</span> <div class="input-container"><input type="text" class="answer-input" data-page="1" data-word="1" placeholder="..."><div class="feedback-icon"></div></div> and unique shops. Sometimes you can buy <span class="word-to-change">FANTASY</span> <div class="input-container"><input type="text" class="answer-input" data-page="1" data-word="2" placeholder="..."><div class="feedback-icon"></div></div> things there. You can spend a whole day in a shopping centre, have lunch in one of the European or <span class="word-to-change">ENGLAND</span> <div class="input-container"><input type="text" class="answer-input" data-page="1" data-word="3" placeholder="..."><div class="feedback-icon"></div></div> restaurants, see a new film in the cinema and even enjoy a <span class="word-to-change">PERFORM</span> <div class="input-container"><input type="text" class="answer-input" data-page="1" data-word="4" placeholder="..."><div class="feedback-icon"></div></div>. But be <span class="word-to-change">CARE</span> <div class="input-container"><input type="text" class="answer-input" data-page="1" data-word="5" placeholder="..."><div class="feedback-icon"></div></div> -- London shops are expensive! Don't leave all your money in the shopping centre.`,
+                words: [
+                    {
+                        base: "FASHION",
+                        answer: "fashionable",
+                        translation: "модный, стильный",
+                        explanation: "Суффикс -ABLE используется для образования прилагательных от существительных. Fashion (мода) → fashionable (модный). Аналогично: comfort (комфорт) → comfortable (удобный)."
+                    },
+                    {
+                        base: "ORIGIN",
+                        answer: "original",
+                        translation: "оригинальный, уникальный",
+                        explanation: "Суффикс -AL используется для образования прилагательных от существительных. Origin (происхождение) → original (оригинальный). В контексте речь идет об уникальных магазинах."
+                    },
+                    {
+                        base: "FANTASY",
+                        answer: "fantastic",
+                        translation: "фантастический, невероятный",
+                        explanation: "Суффикс -TIC используется для образования прилагательных от существительных. Fantasy (фантазия) → fantastic (фантастический). Аналогично: drama (драма) → dramatic (драматический)."
+                    },
+                    {
+                        base: "ENGLAND",
+                        answer: "English",
+                        translation: "английский",
+                        explanation: "Суффикс -ISH используется для образования прилагательных, обозначающих национальность или принадлежность к стране. England (Англия) → English (английский). Аналогично: Spain (Испания) → Spanish (испанский)."
+                    },
+                    {
+                        base: "PERFORM",
+                        answer: "performance",
+                        translation: "представление, выступление",
+                        explanation: "Суффикс -ANCE используется для образования существительных от глаголов. Perform (выполнять, выступать) → performance (представление). Аналогично: appear (появляться) → appearance (внешность)."
+                    },
+                    {
+                        base: "CARE",
+                        answer: "careful",
+                        translation: "осторожный, внимательный",
+                        explanation: "Суффикс -FUL означает 'полный' или 'обладающий качеством'. Care (забота, внимание) → careful (осторожный). Аналогично: beauty (красота) → beautiful (красивый)."
+                    }
+                ]
+            },
+            {
+                id: 3,
+                title: "Page 3: Online business <span class='theme-emoji'>💻🌐</span>",
+                content: `Lots of companies do business online. They sell goods and services, or provide <span class="word-to-change">INFORM</span> <div class="input-container"><input type="text" class="answer-input" data-page="2" data-word="0" placeholder="..."><div class="feedback-icon"></div></div> to the general public. Doing business online is less <span class="word-to-change">EXPENSE</span> <div class="input-container"><input type="text" class="answer-input" data-page="2" data-word="1" placeholder="..."><div class="feedback-icon"></div></div> and more convenient than running a traditional business, with offices and lots of employees. Surprisingly enough, there are lots of very young people among online businessmen. In spite of their age, they are quite <span class="word-to-change">SUCCESS</span> <div class="input-container"><input type="text" class="answer-input" data-page="2" data-word="2" placeholder="..."><div class="feedback-icon"></div></div> and professional. For example, Ben Collins started his own online company when he was <span class="word-tochange">REAL</span> <div class="input-container"><input type="text" class="answer-input" data-page="2" data-word="3" placeholder="..."><div class="feedback-icon"></div></div> young. He was only 17. He says, "My business is <span class="word-to-change">NATIONAL</span> <div class="input-container"><input type="text" class="answer-input" data-page="2" data-word="4" placeholder="..."><div class="feedback-icon"></div></div> - we work with people from different countries. In a real office, some people would <span class="word-to-change">AGREE</span> <div class="input-container"><input type="text" class="answer-input" data-page="2" data-word="5" placeholder="..."><div class="feedback-icon"></div></div> that someone of my age could be a boss, but when I work online, nobody cares how old I am."`,
+                words: [
+                    {
+                        base: "INFORM",
+                        answer: "information",
+                        translation: "информация, сведения",
+                        explanation: "Суффикс -ATION используется для образования существительных от глаголов. Inform (информировать) → information (информация). Аналогично: educate (обучать) → education (образование)."
+                    },
+                    {
+                        base: "EXPENSE",
+                        answer: "expensive",
+                        translation: "дорогой, затратный",
+                        explanation: "Суффикс -IVE используется для образования прилагательных от существительных. Expense (расходы) → expensive (дорогой). Аналогично: expense (расход) → expensive (дорогой)."
+                    },
+                    {
+                        base: "SUCCESS",
+                        answer: "successful",
+                        translation: "успешный, преуспевающий",
+                        explanation: "Суффикс -FUL означает 'полный' или 'обладающий качеством'. Success (успех) → successful (успешный). Аналогично: hope (надежда) → hopeful (надеющийся)."
+                    },
+                    {
+                        base: "REAL",
+                        answer: "really",
+                        translation: "действительно, очень",
+                        explanation: "Суффикс -LY добавляется к прилагательным для образования наречий. Real (настоящий, реальный) → really (действительно). Аналогично: quick (быстрый) → quickly (быстро)."
+                    },
+                    {
+                        base: "NATIONAL",
+                        answer: "international",
+                        translation: "международный",
+                        explanation: "Приставка INTER- означает 'между'. National (национальный) → international (международный). В контексте говорится о работе с людьми из разных стран."
+                    },
+                    {
+                        base: "AGREE",
+                        answer: "disagree",
+                        translation: "не соглашаться",
+                        explanation: "Приставка DIS- придаёт слову противоположное или отрицательное значение. Agree (соглашаться) → disagree (не соглашаться). В контексте речь идет о том, что некоторые люди НЕ согласились бы, что молодой человек может быть боссом."
+                    }
+                ]
+            },
+            {
+                id: 4,
+                title: "Page 4: Volunteering in a charity shop <span class='theme-emoji'>❤️🛒</span>",
+                content: `Last year, I became a volunteer in a charity shop. It was an <span class="word-to-change">USUAL</span> <div class="input-container"><input type="text" class="answer-input" data-page="3" data-word="0" placeholder="..."><div class="feedback-icon"></div></div> job for me - I had never been involved with charities. Our shop raised money to provide medical care for anyone suffering from any <span class="word-to-change">ILL</span> <div class="input-container"><input type="text" class="answer-input" data-page="3" data-word="1" placeholder="..."><div class="feedback-icon"></div></div>. The job was not easy but I enjoyed it very much. All my colleagues were very helpful. Their <span class="word-to-change">FRIEND</span> <div class="input-container"><input type="text" class="answer-input" data-page="3" data-word="2" placeholder="..."><div class="feedback-icon"></div></div> and support meant a lot to me. Andrew, my boss and <span class="word-to-change">MANAGE</span> <div class="input-container"><input type="text" class="answer-input" data-page="3" data-word="3" placeholder="..."><div class="feedback-icon"></div></div>, was a smart and well-organized person. He kept saying that we had no right to be indifferent or <span class="word-to-change">CARE</span> <div class="input-container"><input type="text" class="answer-input" data-page="3" data-word="4" placeholder="..."><div class="feedback-icon"></div></div> because people's lives depended on us. Working in the charity shop, I have met some very interesting people and have learnt a lot of practical skills. Volunteering has equipped me with experience which I'm sure will be <span class="word-to-change">USE</span> <div class="input-container"><input type="text" class="answer-input" data-page="3" data-word="5" placeholder="..."><div class="feedback-icon"></div></div> for my future.`,
+                words: [
+                    {
+                        base: "USUAL",
+                        answer: "unusual",
+                        translation: "необычный, нестандартный",
+                        explanation: "Приставка UN- придаёт слову противоположное значение. Usual (обычный) → unusual (необычный). В контексте говорится, что работа волонтером была необычным опытом для автора."
+                    },
+                    {
+                        base: "ILL",
+                        answer: "illness",
+                        translation: "болезнь, заболевание",
+                        explanation: "Суффикс -NESS используется для образования существительных от прилагательных. Ill (больной) → illness (болезнь). Аналогично: happy (счастливый) → happiness (счастье)."
+                    },
+                    {
+                        base: "FRIEND",
+                        answer: "friendship",
+                        translation: "дружба, дружеские отношения",
+                        explanation: "Суффикс -SHIP используется для образования существительных, обозначающих состояние, качество или отношения. Friend (друг) → friendship (дружба). Аналогично: leader (лидер) → leadership (лидерство), relation (отношение) → relationship (отношения)."
+                    },
+                    {
+                        base: "MANAGE",
+                        answer: "manager",
+                        translation: "менеджер, руководитель",
+                        explanation: "Суффикс -ER используется для образования существительных, обозначающих лицо по роду деятельности. Manage (управлять) → manager (менеджер). Аналогично: teach (учить) → teacher (учитель)."
+                    },
+                    {
+                        base: "CARE",
+                        answer: "careless",
+                        translation: "беспечный, небрежный",
+                        explanation: "Суффикс -LESS означает отсутствие качества. Care (забота, внимание) → careless (беспечный). В контексте говорится о том, что нельзя быть безразличным или беспечным."
+                    },
+                    {
+                        base: "USE",
+                        answer: "useful",
+                        translation: "полезный, нужный",
+                        explanation: "Суффикс -FUL означает 'полный' или 'обладающий качеством'. Use (польза, использование) → useful (полезный). Аналогично: help (помощь) → helpful (полезный)."
+                    }
+                ]
+            },
+            {
+                id: 5,
+                title: "Page 5: Fighting bad moods <span class='theme-emoji'>🍫😊</span>",
+                content: `There are lots of products that help us fight bad moods and depression. If you feel down and <span class="word-to-change">SLEEP</span> <div class="input-container"><input type="text" class="answer-input" data-page="4" data-word="0" placeholder="..."><div class="feedback-icon"></div></div>, just get a bar of dark chocolate from the fridge. Chocolate will improve your mood and you'll feel <span class="word-to-change">CHEER</span> <div class="input-container"><input type="text" class="answer-input" data-page="4" data-word="1" placeholder="..."><div class="feedback-icon"></div></div> and happy again. This <span class="word-to-change">INFORM</span> <div class="input-container"><input type="text" class="answer-input" data-page="4" data-word="2" placeholder="..."><div class="feedback-icon"></div></div> is often used in chocolate adverts. Unfortunately, we can't use this method too often. The positive effect does not last long. Meanwhile chocolate is not <span class="word-to-change">HARM</span> <div class="input-container"><input type="text" class="answer-input" data-page="4" data-word="3" placeholder="..."><div class="feedback-icon"></div></div> food. It contains fat and sugar which can make you overweight. Some people may also be allergic to chocolate and it can affect their <span class="word-to-change">APPEAR</span> <div class="input-container"><input type="text" class="answer-input" data-page="4" data-word="4" placeholder="..."><div class="feedback-icon"></div></div>, causing skin problems. The alternative and <span class="word-to-change">ABSOLUTE</span> <div class="input-container"><input type="text" class="answer-input" data-page="4" data-word="5" placeholder="..."><div class="feedback-icon"></div></div> safe method to fight depression is doing sport. It can be recommended to everyone!`,
+                words: [
+                    {
+                        base: "SLEEP",
+                        answer: "sleepy",
+                        translation: "сонный, сонливый",
+                        explanation: "Суффикс -Y используется для образования прилагательных от существительных. Sleep (сон) → sleepy (сонный). Аналогично: rain (дождь) → rainy (дождливый)."
+                    },
+                    {
+                        base: "CHEER",
+                        answer: "cheerful",
+                        translation: "веселый, радостный",
+                        explanation: "Суффикс -FUL означает 'полный' или 'обладающий качеством'. Cheer (веселье, поддержка) → cheerful (веселый). Аналогично: beauty (красота) → beautiful (красивый)."
+                    },
+                    {
+                        base: "INFORM",
+                        answer: "information",
+                        translation: "информация, сведения",
+                        explanation: "Суффикс -ATION используется для образования существительных от глаголов. Inform (информировать) → information (информация). Аналогично: examine (исследовать) → examination (экзамен)."
+                    },
+                    {
+                        base: "HARM",
+                        answer: "harmless",
+                        translation: "безвредный, безопасный",
+                        explanation: "Суффикс -LESS означает отсутствие качества. Harm (вред) → harmless (безвредный). В контексте говорится, что шоколад НЕ является безвредной едой."
+                    },
+                    {
+                        base: "APPEAR",
+                        answer: "appearance",
+                        translation: "внешность, вид",
+                        explanation: "Суффикс -ANCE используется для образования существительных от глаголов. Appear (появляться) → appearance (внешность). Аналогично: perform (выступать) → performance (представление)."
+                    },
+                    {
+                        base: "ABSOLUTE",
+                        answer: "absolutely",
+                        translation: "абсолютно, совершенно",
+                        explanation: "Суффикс -LY добавляется к прилагательным для образования наречий. Absolute (абсолютный) → absolutely (абсолютно). Аналогично: complete (полный) → completely (полностью)."
+                    }
+                ]
+            }
+        ];
+
+        // Переменные состояния
+        let currentPageIndex = 0;
+        let userAnswers = [[], [], [], [], []];
+        let score = 0;
+        let pages = [];
+        let currentPageHasErrors = false;
+        let isReviewMode = false;
+        let allPagesCompleted = false;
+        
+        // Инициализация страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+        
+        function initializeApp() {
+            // Создаем глубокую копию данных страниц
+            resetPagesData();
+            
+            renderPages();
+            updateNavigation();
+            updateProgress();
+            
+            // Назначение обработчиков событий
+            document.getElementById('next-btn').addEventListener('click', goToNextPage);
+            document.getElementById('prev-page-btn').addEventListener('click', goToPrevPage);
+            document.getElementById('restart-btn').addEventListener('click', restartApp);
+            document.getElementById('restart-page-btn').addEventListener('click', restartCurrentPage);
+            document.getElementById('view-all-btn').addEventListener('click', enterReviewMode);
+            document.getElementById('restart-from-completion').addEventListener('click', restartApp);
+            document.getElementById('review-pages').addEventListener('click', enterReviewMode);
+            
+            // Обработчики для кнопок навигации по страницам
+            document.querySelectorAll('.page-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const pageIndex = parseInt(this.dataset.page);
+                    goToPage(pageIndex);
+                });
+            });
+        }
+        
+        // Сброс данных страниц
+        function resetPagesData() {
+            pages = JSON.parse(JSON.stringify(pagesData));
+            userAnswers = [[], [], [], [], []];
+            score = 0;
+            currentPageIndex = 0;
+            currentPageHasErrors = false;
+            isReviewMode = false;
+            allPagesCompleted = false;
+            
+            // Сбрасываем статус выполненных страниц
+            pages.forEach(page => {
+                page.completed = false;
+                page.unlocked = page.id === 1; // Только первая страница открыта изначально
+            });
+        }
+        
+        // Сброс текущей страницы
+        function restartCurrentPage() {
+            const pageIndex = currentPageIndex;
+            
+            // Сбрасываем ответы для текущей страницы
+            userAnswers[pageIndex] = [];
+            
+            // Сбрасываем статус завершения страницы
+            pages[pageIndex].completed = false;
+            
+            // Сбрасываем разблокировку следующих страниц
+            for (let i = pageIndex + 1; i < pages.length; i++) {
+                pages[i].unlocked = false;
+                pages[i].completed = false;
+            }
+            
+            // Скрываем кнопку "Следующая страница"
+            document.getElementById('next-btn').classList.add('hidden');
+            
+            // Скрываем сообщение об ошибках
+            document.getElementById('error-message').style.display = 'none';
+            
+            // Перерисовываем страницы
+            renderPages();
+            updateNavigation();
+            updateProgress();
+            updateNavigationButtons();
+            
+            // Показываем сообщение о сбросе текущей страницы
+            showRestartPageMessage();
+        }
+        
+        // Отображение страниц
+        function renderPages() {
+            const container = document.getElementById('pages-container');
+            container.innerHTML = '';
+            
+            // Показываем или скрываем уведомление о режиме просмотра
+            if (isReviewMode) {
+                document.getElementById('review-notice').style.display = 'block';
+            } else {
+                document.getElementById('review-notice').style.display = 'none';
+            }
+            
+            pages.forEach((page, pageIndex) => {
+                const pageElement = document.createElement('div');
+                let className = `page`;
+                
+                if ((pageIndex === currentPageIndex && !isReviewMode) || 
+                    (isReviewMode && page.completed)) {
+                    className += ' active';
+                }
+                
+                if (page.completed) {
+                    className += ' completed';
+                }
+                
+                pageElement.className = className;
+                pageElement.id = `page-${pageIndex}`;
+                
+                // Статус страницы - показываем только после проверки
+                const statusHtml = getPageStatusHtml(page, pageIndex);
+                
+                // Создаем содержимое страницы
+                let pageHTML = `
+                    <div class="task-status">${statusHtml}</div>
+                    <h3><span class="page-number">${page.id}</span> ${page.title}</h3>
+                    <div class="text-content">
+                `;
+                
+                // Отображаем содержимое страницы в зависимости от режима
+                if (isReviewMode && page.completed) {
+                    // В режиме просмотра показываем текст с правильными ответами
+                    let reviewContent = page.content;
+                    
+                    // Заменяем инпуты на правильные ответы
+                    page.words.forEach((word, wordIndex) => {
+                        const answer = word.answer;
+                        const inputRegex = new RegExp(`<div class="input-container"><input type="text" class="answer-input" data-page="${pageIndex}" data-word="${wordIndex}" placeholder="..."><div class="feedback-icon"></div></div>`);
+                        reviewContent = reviewContent.replace(inputRegex, `<span class="correct-answer">${answer}</span>`);
+                    });
+                    
+                    pageHTML += reviewContent;
+                } else if (pageIndex === currentPageIndex && !isReviewMode) {
+                    // В обычном режиме показываем инпуты для текущей страницы
+                    pageHTML += page.content;
+                } else {
+                    // Для неактивных страниц в обычном режиме показываем текст без инпутов
+                    let inactiveContent = page.content;
+                    
+                    // Удаляем инпуты для неактивных страниц
+                    page.words.forEach((word, wordIndex) => {
+                        const inputRegex = new RegExp(`<div class="input-container"><input type="text" class="answer-input" data-page="${pageIndex}" data-word="${wordIndex}" placeholder="..."><div class="feedback-icon"></div></div>`);
+                        inactiveContent = inactiveContent.replace(inputRegex, `[...]`);
+                    });
+                    
+                    pageHTML += inactiveContent;
+                }
+                
+                pageHTML += `</div>`;
+                
+                // Добавляем блок с подсказками только для активной страницы (не в режиме просмотра)
+                if (pageIndex === currentPageIndex && !isReviewMode) {
+                    pageHTML += `
+                        <div class="hints-section">
+                            <p><i class="fas fa-lightbulb"></i> Words to transform: <span class="theme-emoji">✏️📝</span></p>
+                            <div class="word-list">
+                    `;
+                    
+                    page.words.forEach((word, wordIndex) => {
+                        pageHTML += `<div class="word-item">${word.base} <span class="theme-emoji">➡️</span></div>`;
+                    });
+                    
+                    pageHTML += `</div></div>`;
+                }
+                
+                // Добавляем кнопку "CHECK THE ANSWERS" для каждой страницы (только в обычном режиме)
+                if (pageIndex === currentPageIndex && !isReviewMode) {
+                    const allFilled = checkIfAllFilled(pageIndex);
+                    pageHTML += `
+                        <button class="page-check-btn" data-page="${pageIndex}" ${allFilled ? '' : 'disabled'}>
+                            <i class="fas fa-check-circle"></i> CHECK THE ANSWERS <span class="theme-emoji">✅</span>
+                        </button>
+                    `;
+                }
+                
+                // Добавляем пояснения для режима просмотра
+                if (isReviewMode && page.completed) {
+                    page.words.forEach((word, wordIndex) => {
+                        pageHTML += `
+                            <div class="explanation show">
+                                <h4><i class="fas fa-info-circle"></i> Explanation for word <span class="word-to-change">${word.base}</span> → <span class="correct-answer">${word.answer}</span> <span class="theme-emoji">💡📚</span></h4>
+                                <div class="explanation-content">
+                                    <div class="translation">
+                                        <h5><i class="fas fa-language"></i> Translation and meaning: <span class="theme-emoji">🌍📖</span></h5>
+                                        <p><strong>${word.answer}</strong> — ${word.translation}</p>
+                                    </div>
+                                    <div class="word-rule">
+                                        <h5><i class="fas fa-graduation-cap"></i> Word formation rule: <span class="theme-emoji">🧠🔤</span></h5>
+                                        <p>${word.explanation}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+                // Добавляем контейнеры для пояснений для активной страницы в обычном режиме
+                else if (pageIndex === currentPageIndex && !isReviewMode) {
+                    page.words.forEach((word, wordIndex) => {
+                        pageHTML += `<div class="explanation" id="explanation-${pageIndex}-${wordIndex}"></div>`;
+                    });
+                }
+                
+                pageElement.innerHTML = pageHTML;
+                container.appendChild(pageElement);
+            });
+            
+            // Заполняем поля ввода сохраненными ответами (только для активной страницы в режиме выполнения)
+            if (!isReviewMode) {
+                const inputs = document.querySelectorAll('.answer-input');
+                inputs.forEach(input => {
+                    const pageIndex = parseInt(input.dataset.page);
+                    const wordIndex = parseInt(input.dataset.word);
+                    
+                    if (pageIndex !== currentPageIndex) return;
+                    
+                    if (userAnswers[pageIndex] && userAnswers[pageIndex][wordIndex]) {
+                        input.value = userAnswers[pageIndex][wordIndex];
+                    } else {
+                        input.value = '';
+                    }
+                    
+                    // Восстанавливаем стили для уже проверенных ответов
+                    if (input.value) {
+                        const correctAnswer = pages[pageIndex].words[wordIndex].answer.toLowerCase();
+                        const userAnswer = input.value.trim().toLowerCase();
+                        
+                        if (userAnswer === correctAnswer) {
+                            input.classList.add('correct');
+                            input.classList.remove('incorrect');
+                            const icon = input.parentElement.querySelector('.feedback-icon');
+                            if (icon) {
+                                icon.className = 'feedback-icon check-icon';
+                                icon.innerHTML = '<i class="fas fa-check-circle"></i>';
+                            }
+                        } else if (userAnswers[pageIndex][wordIndex]) {
+                            // Если ответ был проверен и неверен
+                            input.classList.add('incorrect');
+                            input.classList.remove('correct');
+                            const icon = input.parentElement.querySelector('.feedback-icon');
+                            if (icon) {
+                                icon.className = 'feedback-icon times-icon';
+                                icon.innerHTML = '<i class="fas fa-times-circle"></i>';
+                            }
+                        }
+                    }
+                });
+                
+                // Обработчики событий для полей ввода (только для активной страницы в режиме выполнения)
+                document.querySelectorAll('.answer-input').forEach(input => {
+                    input.addEventListener('input', function() {
+                        const pageIndex = parseInt(this.dataset.page);
+                        const wordIndex = parseInt(this.dataset.word);
+                        
+                        if (pageIndex !== currentPageIndex) return;
+                        
+                        if (!userAnswers[pageIndex]) {
+                            userAnswers[pageIndex] = [];
+                        }
+                        
+                        userAnswers[pageIndex][wordIndex] = this.value.trim();
+                        
+                        // Сбрасываем стили при изменении ответа
+                        this.classList.remove('correct', 'incorrect');
+                        
+                        // Сбрасываем иконки обратной связи
+                        const icon = this.parentElement.querySelector('.feedback-icon');
+                        if (icon) {
+                            icon.className = 'feedback-icon';
+                            icon.innerHTML = '';
+                        }
+                        
+                        // Скрываем пояснение
+                        const explanation = document.getElementById(`explanation-${pageIndex}-${wordIndex}`);
+                        if (explanation) explanation.classList.remove('show');
+                        
+                        // Обновляем состояние кнопки "CHECK THE ANSWERS"
+                        updatePageCheckButton(pageIndex);
+                        
+                        // Сбрасываем статус ошибок при редактировании
+                        currentPageHasErrors = false;
+                        
+                        // ОБНОВЛЕНО: Скрываем статус страницы при вводе ответов
+                        updatePageStatus(pageIndex, true);
+                    });
+                });
+                
+                // Обработчики для кнопок "CHECK THE ANSWERS" на каждой странице
+                document.querySelectorAll('.page-check-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const pageIndex = parseInt(this.dataset.page);
+                        checkPageAnswers(pageIndex);
+                    });
+                });
+                
+                // Обновляем состояние кнопки "CHECK THE ANSWERS"
+                updatePageCheckButton(currentPageIndex);
+            }
+            
+            // Обновляем отображение кнопок навигации
+            updateNavigationButtons();
+        }
+        
+        // Проверить, все ли поля заполнены на странице
+        function checkIfAllFilled(pageIndex) {
+            const currentPage = pages[pageIndex];
+            
+            for (let i = 0; i < currentPage.words.length; i++) {
+                const userAnswer = userAnswers[pageIndex] && userAnswers[pageIndex][i] || '';
+                if (!userAnswer) {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+        
+        // Обновить состояние кнопки "CHECK THE ANSWERS"
+        function updatePageCheckButton(pageIndex) {
+            const checkBtn = document.querySelector(`.page-check-btn[data-page="${pageIndex}"]`);
+            if (checkBtn) {
+                const allFilled = checkIfAllFilled(pageIndex);
+                checkBtn.disabled = !allFilled;
+            }
+        }
+        
+        // Проверить ответы на конкретной странице
+        function checkPageAnswers(pageIndex) {
+            const currentPage = pages[pageIndex];
+            let allCorrect = true;
+            currentPageHasErrors = false;
+            
+            currentPage.words.forEach((word, wordIndex) => {
+                const userAnswer = userAnswers[pageIndex] && userAnswers[pageIndex][wordIndex] || '';
+                const isCorrect = userAnswer.toLowerCase() === word.answer.toLowerCase();
+                
+                // Находим все инпуты для этого слова
+                const inputs = document.querySelectorAll(`.answer-input[data-page="${pageIndex}"][data-word="${wordIndex}"]`);
+                
+                inputs.forEach(input => {
+                    const icon = input.parentElement.querySelector('.feedback-icon');
+                    
+                    if (isCorrect) {
+                        input.classList.add('correct');
+                        input.classList.remove('incorrect');
+                        if (icon) {
+                            icon.className = 'feedback-icon check-icon';
+                            icon.innerHTML = '<i class="fas fa-check-circle"></i>';
+                        }
+                    } else {
+                        allCorrect = false;
+                        currentPageHasErrors = true;
+                        input.classList.add('incorrect');
+                        input.classList.remove('correct');
+                        if (icon) {
+                            icon.className = 'feedback-icon times-icon';
+                            icon.innerHTML = '<i class="fas fa-times-circle"></i>';
+                        }
+                    }
+                });
+                
+                // Показываем/скрываем пояснение
+                const explanation = document.getElementById(`explanation-${pageIndex}-${wordIndex}`);
+                if (explanation) {
+                    if (!isCorrect && userAnswer) {
+                        explanation.innerHTML = `
+                            <h4><i class="fas fa-info-circle"></i> Explanation for word <span class="word-to-change">${word.base}</span>: <span class="theme-emoji">💡📚</span></h4>
+                            <div class="explanation-content">
+                                <div class="translation">
+                                    <h5><i class="fas fa-language"></i> Translation and meaning: <span class="theme-emoji">🌍📖</span></h5>
+                                        <p><strong>${word.answer}</strong> — ${word.translation}</p>
+                                    <p>Your answer: <span class="user-answer">${userAnswer}</span></p>
+                                    <p>Correct answer: <span class="correct-answer">${word.answer}</span></p>
+                                </div>
+                                <div class="word-rule">
+                                    <h5><i class="fas fa-graduation-cap"></i> Word formation rule: <span class="theme-emoji">🧠🔤</span></h5>
+                                    <p>${word.explanation}</p>
+                                </div>
+                            </div>
+                        `;
+                        explanation.classList.add('show');
+                    } else if (isCorrect) {
+                        explanation.innerHTML = `
+                            <h4><i class="fas fa-check-circle" style="color: #40c057;"></i> Correct! Word <span class="word-to-change">${word.base}</span> → <span class="correct-answer">${word.answer}</span> <span class="theme-emoji">✅🎯</span></h4>
+                            <div class="explanation-content">
+                                <div class="translation">
+                                    <h5><i class="fas fa-language"></i> Translation: <span class="theme-emoji">🌍</span></h5>
+                                    <p>${word.translation}</p>
+                                </div>
+                                <div class="word-rule">
+                                    <h5><i class="fas fa-graduation-cap"></i> Rule: <span class="theme-emoji">🧠</span></h5>
+                                    <p>${word.explanation.split('. ')[0]}.</p>
+                                </div>
+                            </div>
+                        `;
+                        explanation.classList.add('show');
+                    } else {
+                        explanation.classList.remove('show');
+                    }
+                }
+            });
+            
+            // Обновляем статус страницы (теперь показываем результат)
+            updatePageStatus(pageIndex);
+            
+            // Если все правильно, отмечаем страницу как выполненную
+            if (allCorrect) {
+                pages[pageIndex].completed = true;
+                
+                // Разблокируем следующую страницу
+                if (pageIndex < pages.length - 1) {
+                    pages[pageIndex + 1].unlocked = true;
+                }
+                
+                // Показываем кнопку "Следующая страница" внизу, если это текущая страница
+                if (pageIndex === currentPageIndex) {
+                    document.getElementById('next-btn').classList.remove('hidden');
+                }
+                
+                document.getElementById('error-message').style.display = 'none';
+                
+                // Начисляем баллы за правильное выполнение страницы
+                score += 10;
+                
+                // Обновляем навигацию
+                updateNavigation();
+                
+                // Проверяем, завершены ли все страницы
+                checkIfAllPagesCompleted();
+            } else {
+                // Если есть ошибки, показываем сообщение
+                if (pageIndex === currentPageIndex) {
+                    document.getElementById('next-btn').classList.add('hidden');
+                }
+                document.getElementById('error-message').style.display = 'block';
+                
+                // Показываем уведомление об ошибках
+                showErrorNotification();
+            }
+            
+            // Прокручиваем к верху страницы после проверки
+            document.getElementById(`page-${pageIndex}`).scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Получить HTML для статуса страницы
+        function getPageStatusHtml(page, pageIndex, hideEmpty = false) {
+            const answers = userAnswers[pageIndex] || [];
+            
+            if (page.completed) {
+                return `<span class="status-correct"><i class="fas fa-check-circle"></i> Выполнено! <span class="theme-emoji">✅🎉</span></span>`;
+            }
+            
+            // Проверяем, есть ли уже проверенные ответы
+            let hasCheckedAnswers = false;
+            let hasErrors = false;
+            let allChecked = true;
+            
+            for (let i = 0; i < page.words.length; i++) {
+                const userAnswer = answers[i] || '';
+                if (!userAnswer) {
+                    allChecked = false;
+                    continue;
+                }
+                
+                // Проверяем, был ли ответ уже проверен (есть ли стили у инпута)
+                const input = document.querySelector(`.answer-input[data-page="${pageIndex}"][data-word="${i}"]`);
+                if (input) {
+                    if (input.classList.contains('correct') || input.classList.contains('incorrect')) {
+                        hasCheckedAnswers = true;
+                        if (input.classList.contains('incorrect')) {
+                            hasErrors = true;
+                        }
+                    }
+                }
+            }
+            
+            // Если ответы уже проверены, показываем результат
+            if (hasCheckedAnswers) {
+                if (hasErrors) {
+                    return `<span class="status-incorrect"><i class="fas fa-times-circle"></i> Есть ошибки <span class="theme-emoji">❌⚠️</span></span>`;
+                } else if (allChecked) {
+                    return `<span class="status-correct"><i class="fas fa-check-circle"></i> Все правильно! <span class="theme-emoji">✅🎯</span></span>`;
+                }
+            }
+            
+            // Если страница не проверена и hideEmpty=true (при вводе ответов), не показываем статус
+            if (hideEmpty) {
+                return ``;
+            }
+            
+            // По умолчанию показываем пустой статус (только когда страница еще не начата)
+            const hasAnyAnswer = answers.some(a => a && a.trim() !== '');
+            if (!hasAnyAnswer) {
+                return `<span class="status-empty"><i class="far fa-clock"></i> Готов к проверке <span class="theme-emoji">⏳📝</span></span>`;
+            }
+            
+            return ``;
+        }
+        
+        // Обновление статуса страницы
+        function updatePageStatus(pageIndex, hideEmpty = false) {
+            const pageElement = document.getElementById(`page-${pageIndex}`);
+            if (!pageElement) return;
+            
+            const statusElement = pageElement.querySelector('.task-status');
+            if (statusElement) {
+                statusElement.innerHTML = getPageStatusHtml(pages[pageIndex], pageIndex, hideEmpty);
+            }
+        }
+        
+        // Проверить, завершены ли все страницы
+        function checkIfAllPagesCompleted() {
+            allPagesCompleted = pages.every(page => page.completed);
+            
+            if (allPagesCompleted) {
+                // Показываем кнопку "Просмотреть все"
+                document.getElementById('view-all-btn').classList.remove('hidden');
+            }
+        }
+        
+        // Показать уведомление об ошибках
+        function showErrorNotification() {
+            // Создаем временное сообщение
+            const message = document.createElement('div');
+            message.innerHTML = `
+                <div style="position: fixed; top: 20px; right: 20px; background-color: #fa5252; color: white; padding: 15px 25px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Errors found! Fix them to continue. <span class="theme-emoji">❌⚠️</span></span>
+                </div>
+            `;
+            document.body.appendChild(message);
+            
+            // Удаляем сообщение через 3 секунды
+            setTimeout(() => {
+                message.remove();
+            }, 3000);
+        }
+        
+        // Переход к следующей странице
+        function goToNextPage() {
+            // Переходим к следующей странице только если нет ошибок
+            if (currentPageHasErrors) {
+                document.getElementById('error-message').style.display = 'block';
+                return;
+            }
+            
+            currentPageIndex++;
+            
+            // Если страницы закончились, показываем сообщение о завершении
+            if (currentPageIndex >= pages.length) {
+                showCompletionMessage();
+                return;
+            }
+            
+            // Обновляем отображение
+            renderPages();
+            updateProgress();
+            updateNavigation();
+            
+            // Скрываем кнопку "Следующая страница"
+            document.getElementById('next-btn').classList.add('hidden');
+            document.getElementById('error-message').style.display = 'none';
+            
+            // Обновляем кнопки навигации
+            updateNavigationButtons();
+            
+            // Прокручиваем к странице
+            document.getElementById(`page-${currentPageIndex}`).scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Переход к предыдущей странице
+        function goToPrevPage() {
+            if (currentPageIndex > 0) {
+                currentPageIndex--;
+                renderPages();
+                updateProgress();
+                updateNavigation();
+                updateNavigationButtons();
+                
+                // Прокручиваем к странице
+                document.getElementById(`page-${currentPageIndex}`).scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Переход к конкретной странице
+        function goToPage(pageIndex) {
+            // Проверяем, разблокирована ли страница
+            if (!pages[pageIndex].unlocked && !isReviewMode) {
+                return;
+            }
+            
+            currentPageIndex = pageIndex;
+            
+            // Если мы в режиме просмотра, остаемся в нем
+            if (isReviewMode) {
+                renderPages();
+            } else {
+                isReviewMode = false;
+                renderPages();
+            }
+            
+            updateProgress();
+            updateNavigation();
+            updateNavigationButtons();
+            
+            // Прокручиваем к странице
+            document.getElementById(`page-${pageIndex}`).scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Обновление навигации
+        function updateNavigation() {
+            const pageButtons = document.querySelectorAll('.page-btn');
+            
+            pageButtons.forEach((btn, index) => {
+                const page = pages[index];
+                
+                // Сбрасываем классы
+                btn.classList.remove('active', 'completed', 'locked');
+                
+                // Добавляем нужные классы
+                if (index === currentPageIndex && !isReviewMode) {
+                    btn.classList.add('active');
+                }
+                
+                if (page.completed) {
+                    btn.classList.add('completed');
+                }
+                
+                if (!page.unlocked && !isReviewMode) {
+                    btn.classList.add('locked');
+                    btn.innerHTML = `<i class="fas fa-lock"></i> Page ${index + 1}`;
+                } else {
+                    btn.innerHTML = `<i class="fas fa-file-alt"></i> Page ${index + 1}`;
+                }
+            });
+        }
+        
+        // Обновление кнопок навигации
+        function updateNavigationButtons() {
+            // Кнопка "Предыдущая страница"
+            if (currentPageIndex > 0 && !isReviewMode) {
+                document.getElementById('prev-page-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('prev-page-btn').classList.add('hidden');
+            }
+            
+            // Кнопка "Просмотреть все" (показываем, если есть выполненные страницы)
+            const hasCompletedPages = pages.some(page => page.completed);
+            if (hasCompletedPages && !isReviewMode) {
+                document.getElementById('view-all-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('view-all-btn').classList.add('hidden');
+            }
+        }
+        
+        // Войти в режим просмотра всех страниц
+        function enterReviewMode() {
+            isReviewMode = true;
+            
+            // В режиме просмотра разблокируем все страницы
+            pages.forEach(page => {
+                page.unlocked = true;
+            });
+            
+            // Скрываем кнопки, которые не нужны в режиме просмотра
+            document.getElementById('next-btn').classList.add('hidden');
+            document.getElementById('prev-page-btn').classList.add('hidden');
+            document.getElementById('view-all-btn').classList.add('hidden');
+            document.getElementById('restart-page-btn').classList.add('hidden');
+            document.getElementById('restart-btn').classList.add('hidden');
+            document.getElementById('error-message').style.display = 'none';
+            
+            renderPages();
+            updateNavigation();
+            updateNavigationButtons();
+            
+            // Прокручиваем к первой странице
+            setTimeout(() => {
+                document.getElementById(`page-0`).scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+        
+        // Показать сообщение о завершении
+        function showCompletionMessage() {
+            document.getElementById('pages-container').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+            document.getElementById('prev-page-btn').classList.add('hidden');
+            document.getElementById('restart-btn').classList.add('hidden');
+            document.getElementById('restart-page-btn').classList.add('hidden');
+            document.getElementById('view-all-btn').classList.add('hidden');
+            document.getElementById('progress-container').classList.add('hidden');
+            document.getElementById('progress-text').classList.add('hidden');
+            document.getElementById('error-message').style.display = 'none';
+            document.getElementById('page-navigation').classList.add('hidden');
+            document.getElementById('navigation-controls').classList.add('hidden');
+            document.getElementById('review-notice').style.display = 'none';
+            
+            // Показываем результат
+            const maxScore = pages.length * 10;
+            document.getElementById('score-display').innerHTML = 
+                `Your score: ${score} out of ${maxScore} points (${Math.round(score/maxScore*100)}%) <span class="theme-emoji">📊🎯</span>`;
+            document.getElementById('completion-message').style.display = 'block';
+        }
+        
+        // Начать заново
+        function restartApp() {
+            // Полностью сбрасываем все данные
+            resetPagesData();
+            
+            // Скрываем сообщение о завершении
+            document.getElementById('completion-message').style.display = 'none';
+            document.getElementById('pages-container').classList.remove('hidden');
+            document.getElementById('restart-btn').classList.remove('hidden');
+            document.getElementById('restart-page-btn').classList.remove('hidden');
+            document.getElementById('progress-container').classList.remove('hidden');
+            document.getElementById('progress-text').classList.remove('hidden');
+            document.getElementById('error-message').style.display = 'none';
+            document.getElementById('page-navigation').classList.remove('hidden');
+            document.getElementById('navigation-controls').classList.remove('hidden');
+            document.getElementById('review-notice').style.display = 'none';
+            
+            // Восстанавливаем кнопки
+            document.getElementById('next-btn').classList.add('hidden');
+            document.getElementById('prev-page-btn').classList.add('hidden');
+            document.getElementById('view-all-btn').classList.add('hidden');
+            
+            // Перерисовываем страницы
+            renderPages();
+            updateNavigation();
+            updateProgress();
+            updateNavigationButtons();
+            
+            // Прокручиваем к первой странице
+            setTimeout(() => {
+                document.getElementById(`page-0`).scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+            
+            // Показываем сообщение о перезапуске
+            showRestartMessage();
+        }
+        
+        // Показать сообщение о перезапуске страницы
+        function showRestartPageMessage() {
+            // Создаем временное сообщение
+            const message = document.createElement('div');
+            message.innerHTML = `
+                <div style="position: fixed; top: 20px; right: 20px; background-color: #ffa94d; color: white; padding: 15px 25px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-redo"></i>
+                    <span>Page ${currentPageIndex + 1} restarted! <span class="theme-emoji">🔄</span></span>
+                </div>
+            `;
+            document.body.appendChild(message);
+            
+            // Удаляем сообщение через 2 секунды
+            setTimeout(() => {
+                message.remove();
+            }, 2000);
+        }
+        
+        // Показать сообщение о перезапуске
+        function showRestartMessage() {
+            // Создаем временное сообщение
+            const message = document.createElement('div');
+            message.innerHTML = `
+                <div style="position: fixed; top: 20px; right: 20px; background-color: #51cf66; color: white; padding: 15px 25px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-redo"></i>
+                    <span>Exercise restarted! <span class="theme-emoji">🔄🔄</span></span>
+                </div>
+            `;
+            document.body.appendChild(message);
+            
+            // Удаляем сообщение через 2 секунды
+            setTimeout(() => {
+                message.remove();
+            }, 2000);
+        }
+        
+        // Обновление прогресс-бара
+        function updateProgress() {
+            const progress = ((currentPageIndex + 1) / pages.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('progress-text').textContent = `Page ${currentPageIndex + 1} of ${pages.length} <span class="theme-emoji">📄📊</span>`;
+        }
+    </script>
+</body>
+</html>
